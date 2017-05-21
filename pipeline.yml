@@ -5,10 +5,16 @@ resources:
   source:
     uri: https://github.com/markstgodard/sampleapp.git
 
+- name: ci-scripts
+  type: git
+  source:
+    uri: https://github.com/markstgodard/ci-simple.git
+
 jobs:
 
 - name: unit-tests
   plan:
+  - get: ci-scripts
   - get: app
     trigger: true
   - task: run-unit
@@ -16,6 +22,7 @@ jobs:
 
 - name: lint
   plan:
+  - get: ci-scripts
   - get: app
     trigger: true
   - task: run-unit
@@ -23,6 +30,7 @@ jobs:
 
 - name: deploy
   plan:
+  - get: ci-scripts
   - get: app
     passed: [unit-tests]
     trigger: true
