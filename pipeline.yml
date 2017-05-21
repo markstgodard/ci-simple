@@ -1,0 +1,30 @@
+resources:
+
+- name: app
+  type: git
+  source:
+    uri: https://github.com/markstgodard/sampleapp.git
+
+jobs:
+
+- name: unit-tests
+  plan:
+  - get: app
+    trigger: true
+  - task: run-unit
+    file: ci-scripts/tasks/unit-tests.yml
+
+- name: lint
+  plan:
+  - get: app
+    trigger: true
+  - task: run-unit
+    file: ci-scripts/tasks/lint.yml
+
+- name: deploy
+  plan:
+  - get: app
+    passed: [unit-tests]
+    trigger: true
+  - task: deploy
+    file: ci-scripts/tasks/deploy.yml
