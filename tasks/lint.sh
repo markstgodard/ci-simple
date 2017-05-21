@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-echo "Running linting..."
+cd app-src
 
-# TODO: complete hack to slow things down
-sleep $[ ( $RANDOM % 5 )  + 1 ]s
+echo "Linting..."
 
+php-cs-fixer fix . --verbose --dry-run
