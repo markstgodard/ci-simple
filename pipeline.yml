@@ -1,9 +1,9 @@
 resources:
 
-- name: app
+- name: app-src
   type: git
   source:
-    uri: https://github.com/markstgodard/sampleapp.git
+    uri: https://github.com/markstgodard/phpapp.git
 
 - name: ci-scripts
   type: git
@@ -16,7 +16,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci-scripts
-    - get: app
+    - get: app-src
       trigger: true
   - task: run-unit
     file: ci-scripts/tasks/unit-tests.yml
@@ -25,7 +25,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci-scripts
-    - get: app
+    - get: app-src
       trigger: true
   - task: run-unit
     file: ci-scripts/tasks/lint.yml
@@ -34,7 +34,7 @@ jobs:
   plan:
   - aggregate:
     - get: ci-scripts
-    - get: app
+    - get: app-src
       passed: [lint, unit-tests]
       trigger: true
   - task: deploy
