@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Running unit tests"
-php -v
+cd app-src
 
 echo "Install dependencies..."
 composer install --dev --no-progress --no-interaction
