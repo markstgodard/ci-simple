@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: busybox
-    tag: '1'
+    repository: alpine
+    tag: '3.5'
 
 inputs:
 - name: ci-scripts
