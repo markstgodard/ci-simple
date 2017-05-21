@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: php
-    tag: '7.1'
+    repository: composer
+    tag: '1.4'
 
 inputs:
 - name: ci-scripts
