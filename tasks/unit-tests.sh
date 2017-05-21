@@ -2,7 +2,10 @@
 set -e
 
 echo "Running unit tests"
+php -v
 
-# TODO: complete hack to slow things down
-#sleep $[ ( $RANDOM % 5 )  + 1 ]s
+echo "Install dependencies..."
+composer install --dev --no-progress --no-interaction
 
+echo "Running unit tests..."
+./vendor/bin/phpunit
