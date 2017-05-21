@@ -8,6 +8,7 @@ image_resource:
     tag: '1.4'
 
 inputs:
+- name: app-src
 - name: ci-scripts
 
 run:
