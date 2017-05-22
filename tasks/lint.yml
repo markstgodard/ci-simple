@@ -5,8 +5,10 @@ image_resource:
   type: docker-image
   source:
     repository: markstgodard/php-cs-fixer
+    tag: 'latest'
 
 inputs:
+- name: app-src
 - name: ci-scripts
 
 run:
