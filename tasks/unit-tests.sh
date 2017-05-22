@@ -7,4 +7,4 @@ echo "Install dependencies..."
 composer install --dev --no-progress --no-interaction
 
 echo "Running unit tests..."
-./vendor/bin/phpunit
+./vendor/bin/phpunit --testdox
