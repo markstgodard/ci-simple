@@ -4,6 +4,7 @@ resources:
   type: git
   source:
     uri: https://github.com/markstgodard/phpapp.git
+    branch: master
 
 - name: ci-scripts
   type: git
@@ -39,3 +40,4 @@ jobs:
       trigger: true
   - task: deploy
     file: ci-scripts/tasks/deploy.yml
+
