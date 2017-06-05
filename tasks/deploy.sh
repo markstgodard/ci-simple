@@ -23,5 +23,17 @@ gcloud config set container/cluster $GCP_CLUSTER_NAME
 kubectl create -f $CI_SCRIPTS/tasks/pod.yml -n $K8S_NAMESPACE
 
 
-echo "done"
+echo -n "waiting for pod"
+trycount=0
+for i in `seq 1 60`; do
+  match=`kubectl get pods | grep Running`
+  if [ ! -z "$match" -a "$match" != " " ]; then
+    echo "pod is running"
+    exit 0
+  fi
+  echo -n "."
+  sleep 1
+done
+echo "pod did not start"
+exit 1
 
