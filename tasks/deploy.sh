@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+CI_SCRIPTS=$PWD/ci-scripts
+
 echo "Deploying.."
 
 echo "GCP_PROJECT:" $GCP_PROJECT
@@ -18,7 +20,7 @@ gcloud config set project $GCP_PROJECT
 gcloud container clusters get-credentials $GCP_CLUSTER_NAME --zone=$GCP_AZ
 gcloud config set container/cluster $GCP_CLUSTER_NAME
 
-kubectl create -f tasks/pod.yml -n $K8S_NAMESPACE
+kubectl create -f $CI_SCRIPTS/tasks/pod.yml -n $K8S_NAMESPACE
 
 
 echo "done"
