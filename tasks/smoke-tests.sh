@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+blue='\e[1;34m';
+green='\e[0;32m';
+red=$'\e[41m';
+nocolor=$'\e[0m';
+
+
 tmp_dir=$(mktemp -d nevermind.XXXXXXX)
 echo $JSON_KEY >> $tmp_dir/key.json
 gcloud auth activate-service-account --key-file $tmp_dir/key.json
@@ -20,13 +26,11 @@ sleep 5
 echo "Smoke tests.."
 statusCode=$(wget --spider -S http://localhost:8080 2>&1 |grep "HTTP/" | awk '{print $2}')
 
-echo "Status code: " $statusCode
+printf "Status code: ${blue}$statusCode${nocolor}\n"
 
 if [ "$statusCode" = "200" ]; then
-  echo "Smoke tests passed"
+  printf "Smoke tests ${green}passed${nocolor}\n"
 else
-  echo "Smoke tests failed"
+  printf "Smoke tests ${red}failed${nocolor}\n"
   exit 1
 fi
-
-echo "done"
