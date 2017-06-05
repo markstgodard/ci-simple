@@ -13,6 +13,7 @@ podname=`kubectl get pods --no-headers | cut -d' ' -f1`
 
 # port forward to the app
 kubectl port-forward phpapp 8080:80 > /dev/null &
+sleep 2
 
 echo "Smoke tests.."
 statusCode=$(wget --spider -S http://localhost:8080 2>&1 |grep "HTTP/" | awk '{print $2}')
