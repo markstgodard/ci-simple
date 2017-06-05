@@ -27,10 +27,11 @@ kubectl get deployment phpapp
 rc=$?
 set -e
 
+# nothing fancy, if existing deployment, nuke it
 if [ "$rc" = "0" ]; then
-  echo "Deployment already exists, update image"
-  kubectl set image deployment/phpapp phpapp=$IMAGE_NAME
-else
-  echo "Create new deployment"
-  kubectl create -f $CI_SCRIPTS/tasks/deployment.yml
+  echo "Deployment already exists"
+  kubectl delete deployment phpapp && sleep 4
 fi
+
+echo "Create new deployment"
+kubectl create -f $CI_SCRIPTS/tasks/deployment.yml
