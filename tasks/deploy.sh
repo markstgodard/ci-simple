@@ -30,6 +30,7 @@ set -e
 if [ "$rc" = "0" ]; then
   echo "Deployment already exists, update image"
   kubectl rolling-update phpapp --image=$IMAGE_NAME
+  kubectl set image deployment/phpapp phpapp=$IMAGE_NAME
 else
   echo "Create new deployment"
   kubectl run phpapp --image=$IMAGE_NAME --replicas=1 --port=80
