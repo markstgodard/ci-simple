@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: deployment
+  name: phpapp
 spec:
   replicas: 1
   template:
