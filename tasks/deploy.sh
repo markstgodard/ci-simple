@@ -20,6 +20,8 @@ gcloud config set project $GCP_PROJECT
 gcloud container clusters get-credentials $GCP_CLUSTER_NAME --zone=$GCP_AZ
 gcloud config set container/cluster $GCP_CLUSTER_NAME
 
+kubectl delete pod phpapp
+sleep 5
 kubectl create -f $CI_SCRIPTS/tasks/pod.yml -n $K8S_NAMESPACE
 
 
