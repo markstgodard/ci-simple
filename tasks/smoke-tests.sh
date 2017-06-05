@@ -11,8 +11,10 @@ gcloud config set container/cluster $GCP_CLUSTER_NAME
 
 podname=`kubectl get pods --no-headers | cut -d' ' -f1`
 
+echo "Port forward to pod: " $podname
+
 # port forward to the app
-kubectl port-forward phpapp 8080:80 > /dev/null &
+kubectl port-forward $podname 8080:80 > /dev/null &
 sleep 5
 
 echo "Smoke tests.."
