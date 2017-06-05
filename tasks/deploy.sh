@@ -30,7 +30,7 @@ set -e
 # nothing fancy, if existing deployment, nuke it
 if [ "$rc" = "0" ]; then
   echo "Deployment already exists"
-  kubectl delete deployment phpapp && sleep 4
+  kubectl delete deployment phpapp && sleep 5
 fi
 
 echo "Create new deployment"
