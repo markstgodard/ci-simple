@@ -1,5 +1,4 @@
 resources:
-
 - name: app-src
   type: git
   source:
@@ -11,8 +10,14 @@ resources:
   source:
     uri: https://github.com/markstgodard/ci-simple.git
 
-jobs:
+# - name: php-image
+#   type: docker-image
+#   source:
+#     repository: markstgodard/phpapp
+#     username: {{docker-user}}
+#     password: {{docker-password}}
 
+jobs:
 - name: unit-tests
   plan:
   - aggregate:
@@ -38,6 +43,57 @@ jobs:
     - get: app-src
       passed: [lint, unit-tests]
       trigger: true
-  - task: deploy
-    file: ci-scripts/tasks/deploy.yml
+ # Note: doesnt do anything yet
 
+
+
+##############################################
+# Cooking show tactics
+##############################################
+# - name: build-image
+#   plan:
+#   - aggregate:
+#     - get: ci-scripts
+#     - get: app-src
+#       passed: [lint, unit-tests]
+#       trigger: true
+#   - put: php-image
+#     params:
+#       build: app-src
+#       tag_as_latest: true
+#     get_params:
+#       skip_download: true
+
+# - name: deploy
+#   plan:
+#   - aggregate:
+#     - get: ci-scripts
+#     - get: php-image
+#       passed: [build-image]
+#       trigger: true
+#     - get: app-src
+#       passed: [build-image]
+#       trigger: true
+#   - task: deploy-to-k8s
+#     file: ci-scripts/tasks/deploy.yml
+#     params:
+#       GCP_PROJECT: bold-apps-1349
+#       GCP_CLUSTER_NAME: prdc-demo
+#       GCP_AZ: us-central1-a
+#       IMAGE_NAME: markstgodard/phpapp
+#       JSON_KEY: {{gcp-json-key}}
+
+# - name: smoke-tests
+#   plan:
+#   - aggregate:
+#     - get: ci-scripts
+#     - get: app-src
+#       passed: [deploy]
+#       trigger: true
+#   - task: run-smoke-tests
+#     file: ci-scripts/tasks/smoke-tests.yml
+#     params:
+#       GCP_PROJECT: bold-apps-1349
+#       GCP_CLUSTER_NAME: prdc-demo
+#       GCP_AZ: us-central1-a
+#       JSON_KEY: {{gcp-json-key}}
