@@ -20,24 +20,4 @@ gcloud config set project $GCP_PROJECT
 gcloud container clusters get-credentials $GCP_CLUSTER_NAME --zone=$GCP_AZ
 gcloud config set container/cluster $GCP_CLUSTER_NAME
 
-kubectl delete pod phpapp
-sleep 12
-kubectl create -f $CI_SCRIPTS/tasks/pod.yml -n $K8S_NAMESPACE
-
-
-echo -n "waiting for pod"
-trycount=0
-for i in `seq 1 60`; do
-  set +e
-  match=`kubectl get pods | grep Running`
-  echo $match
-  if [ ! -z "$match" ]; then
-    echo "pod is running"
-    exit 0
-  fi
-  echo -n "."
-  sleep 1
-done
-echo "pod did not start"
-exit 1
-
+kubectl run phpapp --image=markstgodard/phpapp --replicas=1 --port=80
