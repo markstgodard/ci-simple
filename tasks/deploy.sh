@@ -32,5 +32,5 @@ if [ "$rc" = "0" ]; then
   kubectl rolling-update phpapp --image=$IMAGE_NAME
 else
   echo "Create new deployment"
-  kubectl run phpapp --image=markstgodard/phpapp --replicas=1 --port=80
+  kubectl run phpapp --image=$IMAGE_NAME --replicas=1 --port=80
 fi
