@@ -26,8 +26,10 @@ kubectl create -f $CI_SCRIPTS/tasks/pod.yml -n $K8S_NAMESPACE
 echo -n "waiting for pod"
 trycount=0
 for i in `seq 1 60`; do
+  set +e
   match=`kubectl get pods | grep Running`
-  if [ ! -z "$match" -a "$match" != " " ]; then
+  echo $match
+  if [ ! -z "$match" ]; then
     echo "pod is running"
     exit 0
   fi
