@@ -32,5 +32,5 @@ if [ "$rc" = "0" ]; then
   kubectl set image deployment/phpapp phpapp=$IMAGE_NAME
 else
   echo "Create new deployment"
-  kubectl run phpapp --image=$IMAGE_NAME --replicas=1 --port=80
+  kubectl create -f CI_SCRIPTS/tasks/deployment.yml
 fi
