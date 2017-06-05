@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "Smoke tests.."
+apt-get update && apt-get install curl -y
 
 tmp_dir=$(mktemp -d nevermind.XXXXXXX)
 echo $JSON_KEY >> $tmp_dir/key.json
@@ -14,6 +14,8 @@ gcloud config set container/cluster $GCP_CLUSTER_NAME
 podname=`kubectl get pods --no-headers | cut -d' ' -f1`
 
 kubectl port-forward phpapp 8080:80 > /dev/null &
+
+echo "Smoke tests.."
 
 statusCode=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080)
 
